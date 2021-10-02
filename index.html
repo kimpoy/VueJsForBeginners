@@ -23,19 +23,27 @@
       [v-cloak] {
         display: none;
       }
+
+      input {
+        margin: 1rem;
+        display: block;
+      }
     </style>
   </head>
 
   <body>
     <div id="app" v-cloak>
+      <!-- ! COMPONENTS -->
+      <custom-form />
+
       <!-- * to use the variable  we use double curly braces -->
       <!-- * displays the value of the variable  -->
-      {{ greeting }}
+      <!-- {{ greeting }} -->
 
       <!-- ! DIRECTIVES -->
       <!-- * two way data binding -->
       <!-- * @keyup is an events, we can also use .prevent and .stop as a modifier-->
-      <input @keyup.enter="greet(greeting)" v-model="greeting" type="text" />
+      <!-- <input @keyup.enter="greet(greeting)" v-model="greeting" type="text" /> -->
 
       <hr />
 
@@ -59,26 +67,6 @@
 
     <!-- vue js 3 -->
     <script src="https://unpkg.com/vue@next"></script>
-    <script>
-      let app = Vue.createApp({
-        data: () => {
-          return {
-            /* you can use any variable/s here */
-            greeting: "Hello Vue 3!",
-            isVisible: false,
-            /* isVisible2: false, */
-          };
-        },
-        methods: {
-          toggleBox() {
-            this.isVisible = !this.isVisible;
-          },
-          greet(greeting) {
-            console.log(greeting);
-          },
-        },
-      });
-      app.mount("#app");
-    </script>
+    <script src="includes/js/main.js"></script>
   </body>
 </html>
