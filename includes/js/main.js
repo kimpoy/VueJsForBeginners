@@ -19,6 +19,7 @@ let app = Vue.createApp({
 });
 
 //! CUSTOM-FORM COMPONENT
+/* we're using v-model here to get the custom data */
 app.component("custom-form", {
   template: `
         <form @submit.prevent="handleSubmit">
@@ -48,6 +49,10 @@ app.component("custom-form", {
 });
 
 //! CUSTOM-INPUT COMPONENT
+/*  the label must all the same in custom form(parent) and custom-input(child).
+    we're using v-model here with the value of inputValue to get the data from v-model of custom-form by using getter and setter
+    (we're using this because the label(props) in this custom-input(child) is inmmutable in custom-form(parent))
+*/
 app.component("custom-input", {
   template: `
         <label>
@@ -55,7 +60,10 @@ app.component("custom-input", {
             <input type="text" v-model="inputValue">
         </label>
       `,
-  /* array of string, list of information pass down from custom-form component*/
+  /*  array of string, list of information pass down from custom-form component,
+      props inshort for properties,
+      in custom-form(parent) the v-model is a short hand and has a property of modelValue so when we use v-model we have access to modelValue
+  */
   props: ["label", "modelValue"],
 
   computed: {
