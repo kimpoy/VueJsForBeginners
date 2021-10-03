@@ -20,12 +20,37 @@ let app = Vue.createApp({
 
 //! CUSTOM-FORM COMPONENT
 /* we're using v-model here to get the custom data */
+/*  */
 app.component("custom-form", {
   template: `
         <form @submit.prevent="handleSubmit">
             <h1>{{ title }}</h1>
-            <custom-input type="email" v-model="email"  :label="emailLabel"/>
-            <custom-input type="password" v-model="password" v-bind:label="passwordLabel"/>
+            ${
+              //*getting the value
+              /* <p v-for="str of inputs" :key="str">{{ str }}</p> */ ""
+            }
+
+            ${
+              //*getting the value and the index
+              /* <p v-for="(str,i) of inputs" :key="i">{{ i }}</p> */ ""
+            }
+
+
+            ${
+              //* not using a loop
+              /* <custom-input type="email" v-model="email"  :label="emailLabel"/> 
+              <custom-input type="password" v-model="password" v-bind:label="passwordLabel"/>
+              */ ""
+            }
+          
+            <custom-input
+              v-for="(input,i) in inputs"
+              :key="i" 
+              v-model="input.value"  
+              :label="input.label"
+              :type="input.type"
+            />
+            
             <button> Log in </button>
         </form>
       `,
@@ -34,16 +59,35 @@ app.component("custom-form", {
   data() {
     return {
       title: "Login Form",
-      email: "",
+      /* this is for the example */
+      /*  inputs: ["email", "password", "name"], */
+
+      /* using a loop */
+      inputs: [
+        {
+          label: "Email",
+          value: "",
+          type: "email",
+        },
+        {
+          label: "Password",
+          value: "",
+          type: "password",
+        },
+      ],
+
+      /* without using a loop */
+      /* email: "",
       password: "",
       emailLabel: "Email",
-      passwordLabel: "Password",
+      passwordLabel: "Password", */
     };
   },
 
   methods: {
     handleSubmit() {
-      console.log(this.email, this.password);
+      /* console.log(this.email, this.password); */
+      console.log(this.inputs[0].value, this.inputs[1].value);
     },
   },
 });
@@ -57,14 +101,14 @@ app.component("custom-input", {
   template: `
         <label>
             {{ label }}
-            <input type="text" v-model="inputValue">
+            <input :type="type" v-model="inputValue">
         </label>
       `,
   /*  array of string, list of information pass down from custom-form component,
       props inshort for properties,
       in custom-form(parent) the v-model is a short hand and has a property of modelValue so when we use v-model we have access to modelValue
   */
-  props: ["label", "modelValue"],
+  props: ["label", "type", "modelValue"],
 
   computed: {
     inputValue: {
