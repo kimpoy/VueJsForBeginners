@@ -87,7 +87,10 @@ app.component("custom-form", {
   methods: {
     handleSubmit() {
       /* console.log(this.email, this.password); */
-      console.log(this.inputs[0].value, this.inputs[1].value);
+      /* console.log(this.inputs[0].value, this.inputs[1].value); */
+      for (let i = 0; i < this.inputs.length; i++) {
+        console.log(this.inputs[i].value);
+      }
     },
   },
 });
