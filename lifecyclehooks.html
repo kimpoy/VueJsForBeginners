@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Cycle</title>
+    <link rel="stylesheet" href="includes/css/style.css" />
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <button @click="toggle">click here</button>
+      <div-box v-if="isVisible"></div-box>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            isVisible: true,
+          };
+        },
+
+        methods: {
+          toggle() {
+            this.isVisible = !this.isVisible;
+          },
+        },
+
+        updated() {
+          console.log("updated");
+        },
+      });
+
+      app.component("div-box", {
+        template: `
+                <div class="box"></div>
+          `,
+
+        /* life cycle hooks */
+
+        created() {
+          console.log("created");
+        },
+        mounted() {
+          console.log("mounted");
+        },
+        unmounted() {
+          console.log("unmounted");
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
